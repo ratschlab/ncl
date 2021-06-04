@@ -1,0 +1,5 @@
+load_path=path/to/mimic3-benchmark/source_data
+save_path=./data/preprocess/mimic3_resources/
+resource_path=./data/preprocess/mimic3_resources/
+static_col=Height
+python data/preprocess/build_dataset.py --dataset mimic3 --load_path $load_path --save_path $save_path --resource_path $resource_path --static_columns $static_col

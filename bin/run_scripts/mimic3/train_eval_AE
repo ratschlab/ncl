@@ -1,0 +1,5 @@
+python main.py -m train_eval -tc configs/mimic3/AE/train.gin \
+	       -ec configs/mimic3/AE/mlp_decomp_eval.gin configs/mimic3/AE/linear_decomp_eval.gin configs/mimic3/AE/mlp_los_eval.gin configs/mimic3/AE/linear_los_eval.gin \
+	       -l logs_experiment/mimic3/AE/ \
+	       -sd 1111 2222 3333 4444 5555 6666 7777 8888 9999 1234 2345 3456 4567 5678 6789 9876 8765 7654 6543 5432 \
+	       -en mlp_decomp linear_decomp mlp_los linear_los \

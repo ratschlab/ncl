@@ -1,0 +1,12 @@
+python main.py -m eval -tc configs/physionet2019/NCL/train_unsupervised.gin \
+	       -ec configs/physionet2019/NCL/eval_unsupervised/mlp_ft.gin configs/physionet2019/NCL/eval_unsupervised/linear_ft.gin \
+	       -l logs_experiment/physionet2019/NCL_w \
+	       -a 0.4 -w 12 \
+	       -tau 0.1 \
+	       -mom 0.99 \
+               -sdo 0.2 \
+  	       -tcos 8 \
+	       -gb 0.1 \
+               -tch 0.5 \
+	       -sd 1111 2222 3333 4444 5555 6666 7777 8888 9999 1234 2345 3456 4567 5678 6789 9876 8765 7654 6543 5432 \
+	       -en mlp_sepsis_ft linear_sepsis_ft \

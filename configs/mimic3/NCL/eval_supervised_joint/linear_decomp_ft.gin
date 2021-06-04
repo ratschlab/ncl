@@ -1,0 +1,48 @@
+import eval.architectures.losses
+import eval.architectures.classifiers
+import model.architectures.critics
+import model.architectures.losses
+import model.architectures.transformations
+import model.architectures.optimizers
+import model.architectures.encoders
+
+
+# Eval characteristics
+eval_task.task = @addon_classification()
+eval_task.training_steps = 1000000
+eval_task.validation_config = {'frequency': -1}
+eval_task.dataset = @ICU_loader_omega_SCL()
+eval_task.gen_type = 'iterate'
+eval_task.augmentations = []
+
+# Dataset configuration
+ICU_loader_omega_SCL.on_RAM = True
+ICU_loader_omega_SCL.shuffle = True
+ICU_loader_omega_SCL.batch_size = 2048
+ICU_loader_omega_SCL.balance = False
+ICU_loader_omega_SCL.task = 'decomp'
+
+# Remove any dropout
+e/simple_TCN.do = 0.0
+e/simple_TCN.static_do = 0.0
+
+
+# Task configuration
+addon_classification.representation_model = @load_representation()
+load_representation.load_weights = True
+addon_classification.classifier = @Linear_classifier()
+addon_classification.loss_fn = @cross_entropy
+addon_classification.optimizer = @Adam()
+addon_classification.patience = 20
+addon_classification.stopping_metric ='loss'
+addon_classification.end_to_end = True
+addon_classification.grad_clip = None
+
+
+# Add-on Classifier configuration
+Linear_classifier.embedding_shape = (64,)
+Linear_classifier.nb_class = 2
+
+# Optimizers configuration
+Adam.lr = 1e-5
+

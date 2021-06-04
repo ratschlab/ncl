@@ -1,0 +1,9 @@
+.*pycache.*
+__pycache__/
+*.swp
+*DS_Store*
+data/preprocess/physionet2019_resources/non_scaled.h5
+data/preprocess/physionet2019_resources/scaled.h5
+data/preprocess/mimic3_resources/scaled.h5
+data/preprocess/mimic3_resources/non_scaled.h5
+

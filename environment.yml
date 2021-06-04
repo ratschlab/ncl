@@ -1,0 +1,27 @@
+name: ncl
+channels:
+  - anaconda
+  - defaults
+  - conda-forge
+  - bioconda
+dependencies:
+  - cudatoolkit=10.1.243
+  - cudnn=7.6.5
+  - cupti=10.1.168
+  - matplotlib=3.1.3
+  - h5py==2.10.0
+  - numpy=1.18.5
+  - pandas=1.0.3
+  - python=3.6.9
+  - scikit-learn=0.22.1
+  - scipy=1.4.1
+  - tqdm=4.46.0
+  - pip=19.2.3
+  - pip:
+    - cloudpickle==1.3.0
+    - keras-tcn==3.1.1
+    - gin-config==0.3.0
+    - tensorboard==2.3.0
+    - tensorflow-addons==0.11.1
+    - tensorflow-gpu==2.3.1
+    - tensorflow-determinism==0.3.0

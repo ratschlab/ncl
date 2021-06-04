@@ -1,0 +1,12 @@
+python main.py -m eval -tc configs/mimic3/NCL/train_unsupervised.gin \
+	       -ec configs/mimic3/NCL/eval_unsupervised/mlp_decomp_ft.gin configs/mimic3/NCL/eval_unsupervised/linear_decomp_ft.gin configs/mimic3/NCL/eval_unsupervised/mlp_los_ft.gin configs/mimic3/NCL/eval_unsupervised/linear_los_ft.gin\
+	       -l logs_experiment/mimic3/NCL_w \
+	       -a 0.3 -w 16 \
+	       -tau 0.1 \
+	       -mom 0.999 \
+               -sdo 0.2 \
+  	       -tcos 8 \
+	       -gb 0.1 \
+               -tch 0.5 \
+	       -sd 1111 2222 3333 4444 5555 6666 7777 8888 9999 1234 2345 3456 4567 5678 6789 9876 8765 7654 6543 5432 \
+	       -en mlp_decomp_ft linear_decomp_ft mlp_los_ft linear_los_ft \

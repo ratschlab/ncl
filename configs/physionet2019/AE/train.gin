@@ -1,0 +1,72 @@
+import data.loader
+import model.architectures.critics
+import model.architectures.encoders
+import model.architectures.losses
+import model.architectures.optimizers
+import model.architectures.transformations
+import model.methods.self_supervised
+import model.architectures.decoders
+
+
+# Parameters for ICU_loader_semi_temporal:
+# ==============================================================================
+ICU_loader_semi_temporal.batch_size = 2048
+ICU_loader_semi_temporal.data_path = './data/preprocess/physionet2019_resources/scaled.h5'
+ICU_loader_semi_temporal.task = 'sepsis'
+ICU_loader_semi_temporal.nb_variables = -1
+ICU_loader_semi_temporal.on_RAM = True
+ICU_loader_semi_temporal.sampling_method = 'ps'
+ICU_loader_semi_temporal.shuffle = True
+ICU_loader_semi_temporal.step_size = 1
+ICU_loader_semi_temporal.window_size = 48
+ICU_loader_semi_temporal.semi = False
+ICU_loader_semi_temporal.temporal_window =  -1
+
+# Parameters for model:
+# ==============================================================================
+model.dataset = @ICU_loader_semi_temporal()
+model.gen_type = 'iterate'
+model.model = @auto_encoder()
+model.monitoring_config = {'frequency': 1000, 'steps': 10}
+model.training_steps_global = 25001
+
+# Parameters for auto_encoder:
+# ==============================================================================
+auto_encoder.encoder = @e/simple_TCN()
+auto_encoder.decoder = @e/mirror_TCN_decoder()
+auto_encoder.optimizer = @Adam()
+auto_encoder.transformations = []
+
+# Parameters for e/simple_TCN:
+# ==============================================================================
+e/simple_TCN.activation = 'relu'
+e/simple_TCN.dilatations = (1, 2, 4, 8, 16)
+e/simple_TCN.do = 0.0
+e/simple_TCN.kernel_size = 2
+e/simple_TCN.n_filter = 64
+e/simple_TCN.n_stack = 1
+e/simple_TCN.n_static = 5
+e/simple_TCN.use_LN = True
+e/simple_TCN.use_skip = False
+e/simple_TCN.input_shape = (None, 48, 40)
+e/simple_TCN.l2_norm = False
+
+
+# Parameters for e/mirror_TCN_decoder:
+# ==============================================================================
+e/mirror_TCN_decoder.activation = 'relu'
+e/mirror_TCN_decoder.dilatations = (1, 2, 4, 8, 16)
+e/mirror_TCN_decoder.do = 0.0
+e/mirror_TCN_decoder.kernel_size = 2
+e/mirror_TCN_decoder.n_filter = 64
+e/mirror_TCN_decoder.nb_modalities = 40
+e/mirror_TCN_decoder.use_LN = True
+e/mirror_TCN_decoder.input_shape = (None, 1, 64)
+e/mirror_TCN_decoder.seq_length = 48
+e/mirror_TCN_decoder.n_static = 5
+
+Adam.learning_rate = @LinearWarmupCosineDecay()
+LinearWarmupCosineDecay.initial_learning_rate = 1e-5
+LinearWarmupCosineDecay.warmup_steps = 2500
+LinearWarmupCosineDecay.warm_learning_rate  = 1e-3
+LinearWarmupCosineDecay.decay_steps = 22501

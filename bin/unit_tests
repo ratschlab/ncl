@@ -1,0 +1,2 @@
+python -m model.architectures.tests.losses_test
+python -m model.architectures.tests.transformations_test

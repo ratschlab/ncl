@@ -1,0 +1,5 @@
+load_path=path/to/physionet2019/source_data/
+save_path=./data/preprocess/physionet2019_resources/
+resource_path=./data/preprocess/physionet2019_resources/
+static_col='Age Gender Unit1 Unit2 HospAdmTime'
+python data/preprocess/build_dataset.py --dataset physionet2019 --load_path $load_path --save_path $save_path --resource_path $resource_path --static_columns $static_col
