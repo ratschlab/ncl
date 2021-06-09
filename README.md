@@ -1,3 +1,6 @@
+# Neighborhood Contrastive Learning Applied to Online Patient Monitoring
+This repository contains the code used for the paper "Neighborhood Contrastive Learning Applied to Online Patient Monitoring" accepted for a short talk at ICML 2021.
+
 # Setup
 ##  Conda Environment
 To run the code you need to set up a conda environment with the `environment.yml` file.
