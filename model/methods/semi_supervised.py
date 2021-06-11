@@ -47,7 +47,6 @@ class MomentumSemiSupervised(tf.Module):
         self.momentum_projector = momentum_projector
         self.tf_random_generator = None
         self.labels_bin = labels_bin
-        self.frozen_projector = frozen_projector
 
     def set_random_generator(self, tf_random_generator):
         self.tf_random_generator = tf_random_generator
