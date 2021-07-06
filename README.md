@@ -1,7 +1,7 @@
 # Neighborhood Contrastive Learning Applied to Online Patient Monitoring
 This repository contains the code used for the paper "Neighborhood Contrastive Learning Applied to Online Patient Monitoring" accepted for a short talk at ICML 2021.
 <p align="center">
-<img src="https://github.com/ratschlab/ncl/blob/readme-update/bin/NCL_figure.png" width="400">
+<img src="https://github.com/ratschlab/ncl/blob/main/bin/NCL_figure.png" width="400">
 </p>
 
 ## Citing Our Work
