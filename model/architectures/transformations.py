@@ -50,16 +50,19 @@ def history_crop(temporal_sequence, tf_random_generator, padding_value=0.0, p=0.
         padding_value: Float with the value to use to pad the removed history.
         p: Float with the probability to apply this transformation to any element of the batch.
         min_history: Float with the minimal fraction of history to preserve. 
-
     Returns:
             Transformed tensor with same shape.
     """
-    padding_mask = tf.cast(tf.reduce_mean(temporal_sequence, axis=-1) == padding_value, dtype=tf.float32)
-    padding_size = tf.reduce_mean(padding_mask, axis=-1, keepdims=True)
     NUM_SEQ, SEQ_LENGTH, N_MEAS = temporal_sequence.shape
+    padding_mask = tf.reduce_mean(temporal_sequence, axis=-1) != padding_value
+    tmp_indices = tf.where(padding_mask)
+    padding_size = tf.cast(tf.math.segment_min(tmp_indices[:, 1], tmp_indices[:, 0]) / SEQ_LENGTH, dtype=tf.float32)
+    padding_size = tf.expand_dims(padding_size, axis=-1)
+    #padding_size = tf.reduce_mean(padding_mask, axis=-1, keepdims=True)
+
 
     boxes_start = tf_random_generator.uniform(shape=(NUM_SEQ, 1))
-    boxes_start = tf.cast((boxes_start * (1 - padding_size) * min_history + padding_size) * SEQ_LENGTH, dtype=tf.int32)
+    boxes_start = tf.cast((boxes_start * (1 - padding_size) * (1 - min_history) + padding_size) * SEQ_LENGTH, dtype=tf.int32)
     boxes_start = tf.expand_dims(boxes_start, axis=-1)
 
     # Only crop from left side
