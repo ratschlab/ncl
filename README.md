@@ -44,6 +44,7 @@ python -m mimic3benchmark.scripts.validate_events path/to/mimic3-benchmark/
 python -m mimic3benchmark.scripts.extract_episodes_from_subjects path/to/mimic3-benchmark/
 python -m mimic3benchmark.scripts.split_train_and_test path/to/mimic3-benchmark/
 python -m mimic3benchmark.scripts.create_multitask path/to/mimic3-benchmark/ path/to/mimic3-benchmark/source_data
+python -m mimic3models.split_train_val path/to/mimic3-benchmark/source_data
 ```
 You can find more details about each of this command directly at https://github.com/YerevaNN/mimic3-benchmarks.
 
